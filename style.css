@@ -1,0 +1,480 @@
+/* CSS Variables for Theming */
+:root {
+    --font-main: 'Poppins', sans-serif;
+    --base-bg: #f8f9fa;
+    --header-bg: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    --header-text: #ffffff;
+    --tab-bg: #34495e;
+    --tab-text: #e0e0e0;
+    --tab-active-bg: rgba(255, 255, 255, 0.15);
+    --tab-active-text: #ffffff;
+    --tab-indicator: #ffffff;
+    --container-bg: #ffffff;
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
+    --border-radius-sm: 6px;
+    --border-radius-md: 10px;
+}
+
+/* Global Styles */
+body {
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    background-color: var(--base-bg);
+    color: #333;
+    line-height: 1.6;
+    /* Center content vertically */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 900px; /* Increased max-width */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Add centering styles to main element */
+main.container {
+    flex-grow: 1; /* Allow main to grow and fill space */
+    display: flex;
+    flex-direction: column; /* Stack tab content vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    width: 100%; /* Ensure it takes full width for centering */
+}
+
+/* Header Styles */
+header {
+    background: var(--header-bg);
+    color: var(--header-text);
+    padding: 25px 0 15px; /* Increased padding */
+    text-align: center;
+    box-shadow: var(--shadow-medium);
+    position: sticky; /* Keep header visible */
+    top: 0;
+    z-index: 10;
+}
+
+h1 {
+    margin: 0 0 5px;
+    font-size: 2.2em; /* Larger title */
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+/* Tab Navigation */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: var(--tab-bg);
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 14px 25px; /* Increased padding */
+    color: var(--tab-text);
+    font-weight: 600; /* Bolder */
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    opacity: 0.8;
+}
+
+.tab-btn:hover {
+    opacity: 1;
+    background-color: var(--tab-active-bg);
+    color: var(--tab-active-text);
+}
+
+.tab-btn.active {
+    opacity: 1;
+    background-color: transparent; /* Active tab uses indicator, not bg */
+    color: var(--tab-active-text);
+}
+
+/* Modern underline indicator */
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 4px; /* Thicker indicator */
+    background-color: var(--tab-indicator);
+    border-radius: 2px; /* Rounded indicator */
+}
+
+/* Bingo Board Styles */
+.bingo-container {
+    padding: 30px 0; /* Increased padding */
+    text-align: center;
+    background-color: var(--container-bg);
+    margin: 20px; /* Space below sticky header & add side margins */
+    margin: 0 20px 20px; /* Remove top margin, keep side/bottom */
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+    width: 100%; /* Ensure container takes width within flex parent */
+    max-width: 700px; /* Limit max width of the bingo container itself */
+}
+
+h2 { /* Style for the added sport titles */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #444;
+}
+
+.bingo-board {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(80px, 1fr)); /* Responsive columns */
+    grid-gap: 12px; /* Slightly larger gap */
+    margin: 25px auto;
+    max-width: 650px; /* Increased max-width */
+    padding: 0 15px;
+}
+
+.bingo-cell {
+    border-radius: var(--border-radius-sm);
+    padding: 10px; /* Adjusted padding */
+    min-height: 90px; /* Increased height */
+    display: flex;
+    flex-direction: column; /* Allow icon + text */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.9em; /* Adjusted font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent; /* Base border */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Hide overflow for effects */
+    word-wrap: break-word; /* Ensure long text wraps */
+}
+
+.bingo-cell:hover {
+    transform: translateY(-3px); /* Subtle hover lift */
+    box-shadow: var(--shadow-medium);
+}
+
+.bingo-cell.marked {
+    transform: scale(0.95); /* Slight shrink when marked */
+}
+
+/* Add checkmark for marked cells */
+ .bingo-cell.marked::before {
+    content: '✔'; /* Checkmark */
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 1.5em; /* Larger checkmark */
+    color: rgba(255, 255, 255, 0.8); /* White checkmark */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1; /* Ensure checkmark is above background */
+}
+
+.free-space {
+    font-weight: 700; /* Bolder free space */
+    font-size: 1em;
+    position: relative;
+}
+
+.free-space.marked::before {
+     /* Remove the checkmark content for free space */
+     content: '';
+}
+
+/* Controls */
+.controls {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Increased gap */
+}
+
+button.control-btn {
+    padding: 12px 25px; /* Larger buttons */
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    box-shadow: var(--shadow-light);
+}
+
+button.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+button.control-btn:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Win Message */
+.win-message {
+    font-size: 1.8em; /* Larger win message */
+    font-weight: 700;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    display: none; /* Hidden by default */
+    max-width: 80%;
+    animation: winPulse 1.5s ease-in-out infinite; /* Smoother pulse */
+    color: white; /* Ensure text is white */
+    box-shadow: var(--shadow-medium);
+}
+
+@keyframes winPulse { /* Refined pulse animation */
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* --- Sport Specific Themes --- */
+
+/* Rugby Theme */
+.rugby-theme {
+    /* Let's change Rugby theme to be more distinct from Soccer */
+    --theme-primary: #2c3e50; /* Dark Slate Grey/Blue */
+    --theme-secondary: #5d8aa8; /* Air Force Blue */
+    --theme-accent: #e4eaf0;
+    --theme-text: #ffffff;
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary);
+    --theme-free-marked-text: var(--theme-text);
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: var(--theme-secondary);
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* Soccer Theme */
+.soccer-theme {
+    --theme-primary: #2a9d8f; /* Green */
+    --theme-secondary: #83c5be;
+    --theme-accent: #e9f5f3;
+    --theme-text: #ffffff;
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary);
+    --theme-free-marked-text: #264653; /* Darker text on light green */
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: #264653; /* Contrasting hover */
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* NFL Theme */
+.nfl-theme {
+    --theme-primary: #b53737; /* Deep Red */
+    --theme-secondary: #d46a6a;
+    --theme-accent: #f9e8e8;
+    --theme-text: #ffffff;
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary);
+    --theme-free-marked-text: var(--theme-text);
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: #8c2b2b; /* Darker red hover */
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* NBA Theme */
+.nba-theme {
+    --theme-primary: #1d428a; /* NBA Blue */
+    --theme-secondary: #c8102e; /* NBA Red */
+    --theme-accent: #f0f3f9;
+    --theme-text: #ffffff;
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary); /* Use red for contrast */
+    --theme-free-marked-text: var(--theme-text);
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: var(--theme-secondary); /* Red hover */
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* AFL Theme */
+.afl-theme {
+    --theme-primary: #c71f2e; /* Red */
+    --theme-secondary: #003282; /* Blue */
+    --theme-accent: #fde8e9;
+    --theme-text: #ffffff;
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary); /* Blue contrast */
+    --theme-free-marked-text: var(--theme-text);
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: var(--theme-secondary); /* Blue hover */
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* Cricket Theme */
+.cricket-theme {
+    --theme-primary: #005237; /* Dark Green */
+    --theme-secondary: #f9c441; /* Gold/Yellow */
+    --theme-accent: #e6f3ee;
+    --theme-text: #ffffff;
+    --theme-text-dark: #002a1c; /* Darker text for light bg */
+    --theme-cell-bg: #ffffff;
+    --theme-cell-border: var(--theme-primary);
+    --theme-cell-text: var(--theme-primary);
+    --theme-cell-marked-bg: var(--theme-primary);
+    --theme-cell-marked-text: var(--theme-text);
+    --theme-free-bg: var(--theme-accent);
+    --theme-free-text: var(--theme-primary);
+    --theme-free-marked-bg: var(--theme-secondary); /* Gold contrast */
+    --theme-free-marked-text: var(--theme-text-dark); /* Dark text on gold */
+    --theme-button-bg: var(--theme-primary);
+    --theme-button-hover-bg: var(--theme-secondary); /* Gold hover */
+    --theme-win-bg: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+}
+
+/* Apply Theme Variables */
+[class*="-theme"] .bingo-cell {
+    background-color: var(--theme-cell-bg);
+    border: 2px solid var(--theme-cell-border);
+    color: var(--theme-cell-text);
+}
+
+[class*="-theme"] .bingo-cell.marked {
+    background-color: var(--theme-cell-marked-bg);
+    color: var(--theme-cell-marked-text);
+    border-color: var(--theme-cell-marked-bg); /* Match border */
+}
+
+[class*="-theme"] .bingo-cell.marked::before {
+    /* Use theme text for checkmark on marked cells */
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[class*="-theme"] .free-space {
+    background-color: var(--theme-free-bg);
+    color: var(--theme-free-text);
+    border-color: var(--theme-cell-border); /* Keep border consistent */
+}
+
+[class*="-theme"] .free-space.marked {
+    background-color: var(--theme-free-marked-bg);
+    color: var(--theme-free-marked-text);
+     border-color: var(--theme-free-marked-bg); /* Match border */
+}
+
+ [class*="-theme"] .free-space.marked::before {
+    /* Remove the checkmark content for free space */
+    content: '';
+ }
+
+[class*="-theme"] .control-btn {
+    background-color: var(--theme-button-bg);
+}
+
+[class*="-theme"] .control-btn:hover {
+    background-color: var(--theme-button-hover-bg);
+}
+
+[class*="-theme"] .win-message {
+    background: var(--theme-win-bg);
+    color: var(--theme-text); /* Ensure win text is white */
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease; /* Fade in animation */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive Styles --- */
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+     h1 { font-size: 1.8em; }
+     .subtitle { font-size: 1em; }
+     .tab-btn { padding: 12px 18px; font-size: 0.9em; }
+     .bingo-container { margin: 15px; }
+     .bingo-container { margin: 0 15px 15px; } /* Remove top margin */
+     .bingo-board { grid-template-columns: repeat(5, minmax(60px, 1fr)); grid-gap: 8px; }
+     .bingo-cell { min-height: 75px; font-size: 0.8em; padding: 8px; }
+     .bingo-cell.marked::before { font-size: 1.3em; top: 3px; right: 5px;}
+     .controls { flex-direction: column; gap: 12px; align-items: center; }
+     button.control-btn { padding: 10px 20px; width: 70%; max-width: 250px; }
+     .win-message { font-size: 1.5em; padding: 15px; }
+}
+
+/* Phone Styles */
+@media (max-width: 480px) {
+     header { padding: 12px 0 8px; } /* Further reduce header padding */
+     h1 { font-size: 1.3em; } /* Even smaller */
+     .subtitle { font-size: 0.8em; margin-bottom: 10px;} /* Even smaller */
+     .container { padding: 0 10px; } /* Less horizontal padding */
+     main.container { justify-content: flex-start; padding-top: 10px; } /* Adjust centering for small screens if needed */
+     .tabs { margin-top: 5px; }
+     .tab-btn { padding: 7px 8px; font-size: 0.75em; } /* Further reduce tab size */
+     .tab-btn.active::after { width: 60%; height: 3px;}
+     .bingo-container { padding: 15px 0; margin: 10px; } /* Less padding/margin */
+     .bingo-container { padding: 15px 0; margin: 0 5px 10px; } /* Remove top margin, adjust side/bottom */
+     h2 { font-size: 1.0em; margin-bottom: 10px; } /* Further reduce sport title */
+     .bingo-board { grid-template-columns: repeat(5, minmax(40px, 1fr)); grid-gap: 4px; padding: 0 4px;} /* Increase gap slightly */
+     .bingo-cell { min-height: 50px; font-size: 0.6em; padding: 4px;} /* Increase padding slightly */
+     .bingo-cell.marked::before { font-size: 1em; top: 1px; right: 2px;} /* Smaller checkmark */
+     .controls { margin-top: 20px; gap: 10px; }
+     button.control-btn { padding: 7px 12px; font-size: 0.85em; } /* Further reduce button size */
+     .win-message { font-size: 1.2em; padding: 12px; } /* Smaller win message */
+} 

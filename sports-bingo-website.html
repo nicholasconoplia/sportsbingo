@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Partner Bingo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sports Partner Bingo</h1>
+            <p class="subtitle">Check off each square as your partner reacts during the game!</p>
+            <div class="tabs" id="sport-tabs">
+                <button class="tab-btn active" data-sport="rugby">Rugby</button>
+                <button class="tab-btn" data-sport="soccer">Soccer</button>
+                <button class="tab-btn" data-sport="nfl">NFL</button>
+                <button class="tab-btn" data-sport="nba">Basketball</button>
+                <button class="tab-btn" data-sport="afl">AFL</button>
+                <button class="tab-btn" data-sport="cricket">Cricket</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Rugby Content -->
+        <div class="tab-content rugby-theme active" id="rugby-content">
+            <div class="bingo-container">
+                <h2>Rugby Bingo</h2>
+                <div class="bingo-board" id="rugby-board"></div>
+                <div class="controls">
+                    <button id="reset-rugby" class="control-btn">Reset Board</button>
+                    <button id="new-rugby" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-rugby">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+        
+        <!-- Soccer Content -->
+        <div class="tab-content soccer-theme" id="soccer-content">
+            <div class="bingo-container">
+                <h2>Soccer Bingo</h2>
+                <div class="bingo-board" id="soccer-board"></div>
+                <div class="controls">
+                    <button id="reset-soccer" class="control-btn">Reset Board</button>
+                    <button id="new-soccer" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-soccer">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+        
+        <!-- NFL Content -->
+        <div class="tab-content nfl-theme" id="nfl-content">
+            <div class="bingo-container">
+                <h2>NFL Bingo</h2>
+                <div class="bingo-board" id="nfl-board"></div>
+                <div class="controls">
+                    <button id="reset-nfl" class="control-btn">Reset Board</button>
+                    <button id="new-nfl" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-nfl">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+        
+        <!-- NBA Content -->
+        <div class="tab-content nba-theme" id="nba-content">
+            <div class="bingo-container">
+                <h2>Basketball Bingo</h2>
+                <div class="bingo-board" id="nba-board"></div>
+                <div class="controls">
+                    <button id="reset-nba" class="control-btn">Reset Board</button>
+                    <button id="new-nba" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-nba">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+        
+        <!-- AFL Content -->
+        <div class="tab-content afl-theme" id="afl-content">
+            <div class="bingo-container">
+                <h2>AFL Bingo</h2>
+                <div class="bingo-board" id="afl-board"></div>
+                <div class="controls">
+                    <button id="reset-afl" class="control-btn">Reset Board</button>
+                    <button id="new-afl" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-afl">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cricket Content -->
+        <div class="tab-content cricket-theme" id="cricket-content">
+            <div class="bingo-container">
+                <h2>Cricket Bingo</h2>
+                <div class="bingo-board" id="cricket-board"></div>
+                <div class="controls">
+                    <button id="reset-cricket" class="control-btn">Reset Board</button>
+                    <button id="new-cricket" class="control-btn">New Bingo Card</button>
+                </div>
+                <div class="win-message" id="win-cricket">
+                    BINGO! You've won!
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sport-specific phrases
+            const sportPhrases = {
+                rugby: [
+                    "Oooooh!",
+                    "That ref is blind!",
+                    "Random rugby fact",
+                    "PASS THE BALL!",
+                    "**Swears loudly**",
+                    "**Enthusiastic clapping**",
+                    "HIGH TACKLE!",
+                    "That's forward...",
+                    "WHAT ARE YOU DOING?!",
+                    "C'MON!",
+                    "**Makes referee signals**",
+                    "Commentator is wrong",
+                    "Should have done...",
+                    "**Jumps off couch**",
+                    "Let me explain the rules",
+                    "They're going to...",
+                    "**Dramatic groan**",
+                    "We need to score now",
+                    "He's not fit enough",
+                    "Technical rugby terms",
+                    "Back in my day...",
+                    "**Re-enacts the play**",
+                    "**Stress drinking**",
+                    "**Points at screen**"
+                ],
+                soccer: [
+                    "SHOOT!",
+                    "That was offside!",
+                    "**Facepalm**",
+                    "What a dive!",
+                    "**Swears loudly**",
+                    "Pass it already!",
+                    "Where's the defense?!",
+                    "GOOOOAAAALLLL!",
+                    "That's never a foul",
+                    "C'MON REF!",
+                    "**Jumps up**",
+                    "Need to sub him off",
+                    "Random player stat",
+                    "**Throws hands up**",
+                    "He's in the box!",
+                    "That's a red card!",
+                    "**Paces around room**",
+                    "**Anxious leg shaking**",
+                    "**Stress drinking**",
+                    "That keeper is useless",
+                    "Get it out!",
+                    "Play it through!",
+                    "Back in my day...",
+                    "World Cup memory"
+                ],
+                nfl: [
+                    "WHAT A CATCH!",
+                    "That's holding!",
+                    "Go for it!",
+                    "Challenge that call!",
+                    "**Swears loudly**",
+                    "He was wide open!",
+                    "They need to blitz",
+                    "FIRST DOWN!",
+                    "**Touchdown dance**",
+                    "Are you kidding me?!",
+                    "It's 3rd and...",
+                    "**Makes timeout signal**",
+                    "Random player stat",
+                    "Super Bowl reference",
+                    "Fire the coach!",
+                    "**Points angrily**",
+                    "Flag on the play",
+                    "**Stress snacking**",
+                    "That was defensive PI",
+                    "Draft pick talk",
+                    "**Nervous pacing**",
+                    "Run the ball!",
+                    "Fantasy team comment",
+                    "Back in my day..."
+                ],
+                nba: [
+                    "SLAM DUNK!",
+                    "That's a travel!",
+                    "He's on fire!",
+                    "**Arms in the air**",
+                    "**Swears loudly**",
+                    "What a block!",
+                    "Take the shot!",
+                    "That's a foul!",
+                    "He was wide open!",
+                    "DEFENSE!",
+                    "**Mimics shooting**",
+                    "Triple double stats",
+                    "Talks about LeBron",
+                    "Air ball!",
+                    "Shot clock violation",
+                    "**Points at screen**",
+                    "From downtown!",
+                    "AND ONE!",
+                    "Bad call, ref!",
+                    "**Stress snacking**",
+                    "Box out!",
+                    "Random NBA record",
+                    "**Celebrates three**",
+                    "Championship reference"
+                ],
+                afl: [
+                    "BALL!",
+                    "Holding the man!",
+                    "**Jumps off couch**",
+                    "DELIBERATE!",
+                    "**Swears loudly**",
+                    "That's 50!",
+                    "Taken high!",
+                    "MARK!",
+                    "**Makes umpire signals**",
+                    "IN THE BACK!",
+                    "**Stress drinking**",
+                    "Kick it!",
+                    "Random player stat",
+                    "Grand Final reference",
+                    "That's a push!",
+                    "RUSHED BEHIND!",
+                    "Free kick!",
+                    "**Throws hands up**",
+                    "GOAL!",
+                    "Back in my day...",
+                    "**Points at screen**",
+                    "Out on the full!",
+                    "Brownlow mention",
+                    "What a speccy!"
+                ],
+                cricket: [
+                    "HOWZAT!",
+                    "That's out!",
+                    "**Swears loudly**",
+                    "Plumb LBW!",
+                    "**Silent tension**",
+                    "Shot!",
+                    "Dropped it!",
+                    "WIDE!",
+                    "**DRS signal**",
+                    "NO BALL!",
+                    "Edged it!",
+                    "Run rate calc",
+                    "Random cricket stat",
+                    "**Leaves room**",
+                    "World Cup memory",
+                    "**Wince at wicket**",
+                    "Maiden over!",
+                    "**Stress snacking**",
+                    "Back in my day...",
+                    "SIX!",
+                    "**Quiet clapping**",
+                    "**Points at screen**",
+                    "Bowling line comment",
+                    "Test match memory"
+                ]
+            };
+            
+            // Initialize all bingo boards
+            function initializeAllBoards() {
+                Object.keys(sportPhrases).forEach(sport => {
+                    createBingoCard(sport);
+                    
+                    // Add event listeners for each sport's controls
+                    document.getElementById(`reset-${sport}`).addEventListener('click', function() {
+                        resetBoard(sport);
+                    });
+                    
+                    document.getElementById(`new-${sport}`).addEventListener('click', function() {
+                        createBingoCard(sport);
+                    });
+                });
+            }
+            
+            // Handle tab switching
+            function setupTabs() {
+                const tabs = document.querySelectorAll('.tab-btn');
+                
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const sport = this.getAttribute('data-sport');
+                        
+                        // Remove active class from all tabs and content
+                        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        
+                        // Add active class to selected tab and content
+                        this.classList.add('active');
+                        document.getElementById(`${sport}-content`).classList.add('active');
+                    });
+                });
+            }
+            
+            // Shuffle array function
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            // Create bingo card for a specific sport
+            function createBingoCard(sport) {
+                const bingoBoard = document.getElementById(`${sport}-board`);
+                const winMessage = document.getElementById(`win-${sport}`);
+                const sportContainer = document.getElementById(`${sport}-content`); // Get theme container
+                
+                bingoBoard.innerHTML = '';
+                winMessage.style.display = 'none';
+                winMessage.classList.remove('show'); // Ensure class is removed
+                
+                // Apply theme class to body for global theme styles if needed (optional)
+                // document.body.className = `${sport}-theme`; 
+                 // OR apply theme class to the specific container if styles are scoped
+                 // This is already done via the HTML structure, but good to be aware of
+
+                const shuffledPhrases = shuffleArray([...sportPhrases[sport]]);
+                const selectedPhrases = shuffledPhrases.slice(0, 24);
+                
+                // Insert free space in the middle
+                selectedPhrases.splice(12, 0, "FREE SPACE");
+                
+                selectedPhrases.forEach((phrase, index) => {
+                    const cell = document.createElement('div');
+                    cell.className = 'bingo-cell';
+                    cell.textContent = phrase;
+                    
+                    if (phrase === "FREE SPACE") {
+                        cell.classList.add('free-space');
+                        cell.classList.add('marked');
+                    }
+                    
+                    cell.addEventListener('click', function() {
+                        if (phrase !== "FREE SPACE") {
+                            this.classList.toggle('marked');
+                            // Optional: Add slight delay for visual feedback before checking win
+                            setTimeout(() => checkForWin(sport), 100); 
+                        }
+                    });
+                    
+                    bingoBoard.appendChild(cell);
+                });
+            }
+            
+            // Reset the board for a specific sport
+            function resetBoard(sport) {
+                const cells = document.querySelectorAll(`#${sport}-board .bingo-cell`);
+                cells.forEach(cell => {
+                    if (!cell.classList.contains('free-space')) {
+                        cell.classList.remove('marked');
+                    } else {
+                         // Ensure free space remains marked visually if needed, or reset if required by logic
+                         // cell.classList.add('marked'); // Keep free space marked
+                    }
+                });
+                const winMessage = document.getElementById(`win-${sport}`);
+                winMessage.style.display = 'none';
+                winMessage.classList.remove('show'); // Remove show class
+            }
+            
+            // Check for win on a specific sport's board
+            function checkForWin(sport) {
+                const cells = document.querySelectorAll(`#${sport}-board .bingo-cell`);
+                const winMessage = document.getElementById(`win-${sport}`);
+                
+                // If already won, don't re-check
+                if (winMessage.style.display === 'block') return;
+
+                const markedIndices = new Set();
+                cells.forEach((cell, index) => {
+                    if (cell.classList.contains('marked')) {
+                        markedIndices.add(index);
+                    }
+                });
+                
+                let won = false;
+                
+                // Check rows
+                for (let i = 0; i < 5; i++) {
+                    const rowStart = i * 5;
+                    if ([0,1,2,3,4].every(j => markedIndices.has(rowStart + j))) {
+                        won = true; break;
+                    }
+                }
+                
+                // Check columns
+                if (!won) {
+                    for (let i = 0; i < 5; i++) {
+                        if ([0,1,2,3,4].every(j => markedIndices.has(i + j * 5))) {
+                           won = true; break;
+                        }
+                    }
+                }
+                
+                // Check diagonals
+                if (!won) {
+                    if ([0,6,12,18,24].every(i => markedIndices.has(i)) || 
+                        [4,8,12,16,20].every(i => markedIndices.has(i))) {
+                        won = true;
+                    }
+                }
+
+                if (won) {
+                     winMessage.style.display = 'block';
+                     // Optional: Add a class for CSS animation control
+                     // winMessage.classList.add('show'); 
+                     
+                     // Optional: Confetti effect could be added here
+                     // triggerConfetti(); 
+                } else {
+                    // Ensure win message is hidden if a previously winning state is undone
+                     winMessage.style.display = 'none';
+                     // winMessage.classList.remove('show');
+                }
+            }
+            
+            // Initialize the app
+            setupTabs();
+            initializeAllBoards();
+        });
+    </script>
+</body>
+</html>
